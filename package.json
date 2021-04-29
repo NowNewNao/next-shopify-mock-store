@@ -8,10 +8,9 @@
     "type-check": "tsc",
     "lint": "eslint --ext .ts,.tsx",
     "format": "prettier --write 'src/**/*.{ts,tsx}'"
-
   },
   "dependencies": {
-    "next": "latest",
+    "next": "^10.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
