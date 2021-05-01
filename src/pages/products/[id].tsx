@@ -26,10 +26,19 @@ export const getStaticPaths: GetStaticPaths = async () => ({
 });
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const product = await client.product.fetch(params?.id as string);
-  return {
-    props: {
-      product: JSON.parse(JSON.stringify(product)),
+  try {
+    const product = await client.product.fetch(params?.id as string);
+    if(!params) throw new Error('Product Not Found');
+    return {
+      props: {
+        product: JSON.parse(JSON.stringify(product)),
+      }
     }
+  } catch (error) {
+    return {
+      props: {
+        errors: error.message
+      }
+    };
   }
 }
