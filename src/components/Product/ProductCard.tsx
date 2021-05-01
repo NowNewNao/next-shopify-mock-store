@@ -9,15 +9,15 @@ type Props = {
 const ProductCard = ({product}: Props) => {
   return (
     <>
-      <Link href={`./products/${product.id}`}>
+      <Link href={`/products/${product.id}`}>
         <a>
+          <h1>{product.title}</h1>
           <Image
             src={product.images[0].src}
             alt={product.title}
             width={300}
             height={200}
           />
-          <p>{product.title}</p>
           <p>{product.description}</p>
         </a>
       </Link>
