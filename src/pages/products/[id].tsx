@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Product } from "shopify-buy";
 import ProductCard from "../../components/Product/ProductCard";
 import { client } from "../../shopify/client";
+import Button from "@material-ui/core/Button";
 
 type Props = {
   product: Product;
@@ -15,6 +16,13 @@ const ProductDetail = ({ product }: Props) => {
         <a>👈 Back to Product List</a>
       </Link>
       <ProductCard product={product} />
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={()=> {console.log('hi')}}
+      >
+        Add to art
+      </Button>
     </>
   )
 }
