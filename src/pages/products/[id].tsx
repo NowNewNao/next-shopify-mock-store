@@ -4,12 +4,19 @@ import { Product } from "shopify-buy";
 import ProductCard from "../../components/Product/ProductCard";
 import { client } from "../../shopify/client";
 import Button from "@material-ui/core/Button";
+import { useCart } from "../../hooks/cart/use-cart"
 
 type Props = {
   product: Product;
 };
 
 const ProductDetail = ({ product }: Props) => {
+
+const { addToCart }= useCart();
+  const updateCart = async (id: string) => {
+    await addToCart(id);
+  };
+  
   return (
     <>
       <Link href="/">
@@ -19,9 +26,9 @@ const ProductDetail = ({ product }: Props) => {
       <Button
         variant="contained"
         color="primary"
-        onClick={()=> {console.log('hi')}}
-      >
-        Add to art
+        onClick={() => {updateCart(String(product.id))}}
+        >
+        Add to Cart
       </Button>
     </>
   )

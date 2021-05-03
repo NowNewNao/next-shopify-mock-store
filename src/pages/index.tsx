@@ -10,7 +10,7 @@ type Props = {
 
 const ProductList = ({ products }: Props) => {
   return (
-    <Layout title="Home | Next.js + TypeScript Example">
+    <Layout title="Home">
       <h1>Product List</h1>
         {products.map(p => 
           <ProductCard key={p.id} product={p}/>
