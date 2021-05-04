@@ -26,7 +26,7 @@ const { addToCart }= useCart();
       <Button
         variant="contained"
         color="primary"
-        onClick={() => {updateCart(String(product.id))}}
+        onClick={() => {updateCart(String(product.variants[0].id))}}
         >
         Add to Cart
       </Button>

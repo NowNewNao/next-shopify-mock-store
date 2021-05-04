@@ -4,6 +4,7 @@ import MuiLink from '@material-ui/core/Link';
 
 const CartProducts: React.FC = () => {
   const { cart, removeProduct } = useCart();
+  console.log(`cart`,{cart});
   return (
     cart && (
       <>
@@ -11,24 +12,24 @@ const CartProducts: React.FC = () => {
             <div>Empty Cart</div>
           ) : (
             <>
-              {cart.lineItems.map(product => (
-                <>
-                  <Image
-                  src={product.image.src}
-                  alt={product.title ?? ''}
+              {cart.lineItems.map(item => (
+                <div key={item.id}>
+                  {/* <Image
+                  src={item.image.src}
+                  alt={item.title ?? ''}
                   width={300}
                   height={300}
-                  /> 
-                  <div>{product.title}</div>
-                  <div>${parseInt(product.price) * product.quantity}</div>
+                  />  */}
+                  <div>{item.title}</div>
+                  {/* <div>${parseInt(item.price) * item.quantity}</div> */}
                   <MuiLink
                     component="button"
                     variant="body2"
-                    onClick={() => removeProduct(String(product.id))}
+                    onClick={() => removeProduct(String(item.id))}
                   >
                     DELETE
                   </MuiLink>
-                </>
+                </div>
               ))}
             </>
           )}

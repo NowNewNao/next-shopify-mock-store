@@ -56,16 +56,16 @@ export const useCart = (): useCartInterface => {
   };
 
   // 商品を追加
-  const addToCart = (id: string | number) => {
-    console.log(id)
+  const addToCart = (id: string | number): Promise<void> => {
+    console.log(`id`,id)
     return client.checkout
       .addLineItems(getCheckoutId(), [
         {
-          variantId: id,
+          variantId: `${String(id)}`,
           quantity: 1,
         },
       ])
-      .then(cart => {setCart(cart)});
+      .then(cart => {setCart(cart as Cart)});
   }
 
   // 商品を削除
