@@ -1,6 +1,7 @@
 import { useCart } from "../../hooks/cart/use-cart";
-import Image from 'next/image';
+// import Image from 'next/image';
 import MuiLink from '@material-ui/core/Link';
+import Link from "next/link";
 
 const CartProducts: React.FC = () => {
   const { cart, removeProduct } = useCart();
@@ -33,6 +34,9 @@ const CartProducts: React.FC = () => {
               ))}
             </>
           )}
+          <Link href="/">
+            <a>👈 Back to Product List</a>
+          </Link>
       </>
     )
   );
