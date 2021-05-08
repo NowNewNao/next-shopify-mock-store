@@ -1,7 +1,8 @@
 import { useCart } from "../../hooks/cart/use-cart";
-// import Image from 'next/image';
 import MuiLink from '@material-ui/core/Link';
 import Link from "next/link";
+import Image from "next/image";
+
 
 const CartProducts: React.FC = () => {
   const { cart, removeProduct } = useCart();
@@ -15,14 +16,10 @@ const CartProducts: React.FC = () => {
             <>
               {cart.lineItems.map(item => (
                 <div key={item.id}>
-                  {/* <Image
-                  src={item.image.src}
-                  alt={item.title ?? ''}
-                  width={300}
-                  height={300}
-                  />  */}
                   <div>{item.title}</div>
-                  {/* <div>${parseInt(item.price) * item.quantity}</div> */}
+                  <Image src={item.variant.image.src} width={90} height={60} alt={item.title}/>
+                  <div>${item.variant.price}</div>
+                  <div>{item.quantity}</div>
                   <MuiLink
                     component="button"
                     variant="body2"
