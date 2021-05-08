@@ -5,8 +5,11 @@ import Image from "next/image";
 
 
 const CartProducts: React.FC = () => {
-  const { cart, removeProduct } = useCart();
-  console.log(`cart`,{cart});
+  const { cart, removeProduct, changeQuantity } = useCart();
+  const subtotal = (price: string, quantity: number) => {
+    return parseInt(price, 10) * quantity;
+  }
+
   return (
     cart && (
       <>
@@ -20,6 +23,22 @@ const CartProducts: React.FC = () => {
                   <Image src={item.variant.image.src} width={90} height={60} alt={item.title}/>
                   <div>${item.variant.price}</div>
                   <div>{item.quantity}</div>
+                  <select
+                    defaultValue={item.quantity}
+                    onChange={e => {
+                      changeQuantity(item.id, e.target.value)
+                    }}
+                  >
+                    {[...Array(10).keys()].map(num => {
+                      const value = num +1;
+                      return (
+                        <option key={value} value={value}>
+                          {value}
+                        </option>
+                      )
+                    })}
+                  </select>
+                  <div>{subtotal(item.variant.price, item.quantity)}</div>
                   <MuiLink
                     component="button"
                     variant="body2"
@@ -29,6 +48,7 @@ const CartProducts: React.FC = () => {
                   </MuiLink>
                 </div>
               ))}
+              <div>TOTAL ${cart.subtotalPrice}</div>
             </>
           )}
           <Link href="/">
