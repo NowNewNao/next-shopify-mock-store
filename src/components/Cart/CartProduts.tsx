@@ -23,7 +23,6 @@ const CartProducts: React.FC = () => {
                   <div>{item.title}</div>
                   <Image src={item.variant.image.src} width={90} height={60} alt={item.title}/>
                   <div>${item.variant.price}</div>
-                  <div>{item.quantity}</div>
                   <select
                     defaultValue={item.quantity}
                     onChange={e => {
