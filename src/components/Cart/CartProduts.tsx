@@ -2,6 +2,7 @@ import { useCart } from "../../hooks/cart/use-cart";
 import MuiLink from '@material-ui/core/Link';
 import Link from "next/link";
 import Image from "next/image";
+import { Button } from "@material-ui/core";
 
 
 const CartProducts: React.FC = () => {
@@ -49,6 +50,13 @@ const CartProducts: React.FC = () => {
                 </div>
               ))}
               <div>TOTAL ${cart.subtotalPrice}</div>
+              <Button
+                variant='contained'
+                color="primary"
+                onClick={()=> window.open(cart.webUrl)}
+              >
+                Purchase
+              </Button>
             </>
           )}
           <Link href="/">
