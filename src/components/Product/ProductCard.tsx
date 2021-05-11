@@ -11,7 +11,7 @@ const ProductCard = ({product}: Props) => {
     <>
       <Link href={`/products/${product.id}`}>
         <a>
-          <h1>{product.title}</h1>
+          <h1 className="text-green-500">{product.title}</h1>
           <Image
             src={product.images[0].src}
             alt={product.title}
