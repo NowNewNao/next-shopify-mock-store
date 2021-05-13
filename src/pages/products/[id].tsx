@@ -11,6 +11,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 type Props = {
   product: Product;
+  errors?: any;
 };
 
 type ToastState = {
@@ -19,7 +20,7 @@ type ToastState = {
 
 
 
-const ProductDetail = ({ product }: Props) => {
+const ProductDetail = ({ product, errors }: Props) => {
   const [toastState, setToastState] = useState<ToastState>({
     open: false,
     vertical: 'top',
@@ -35,6 +36,9 @@ const { addToCart }= useCart();
     await addToCart(id);
     setToastState({...toastState, open: true});
   };
+
+  if (!product) return <div>loading...</div>;
+  if (errors) return <div>error</div>;
   
   return (
     <>
