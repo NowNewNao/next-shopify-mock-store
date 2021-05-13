@@ -12,9 +12,12 @@ const ProductList = ({ products }: Props) => {
   return (
     <Layout title="Home">
       <h1>Product List</h1>
-        {products.map(p => 
-          <ProductCard key={p.id} product={p}/>
-        )}
+      <div className="flex items-center justify-center flex-wrap p-8 bg-gray-100">
+          {products.map(p => 
+            <ProductCard key={p.id} product={p}/>
+          )}
+
+      </div>
     </Layout>
   )
 };
