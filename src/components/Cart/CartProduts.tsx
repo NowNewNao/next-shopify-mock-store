@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@material-ui/core";
 
-
 const CartProducts: React.FC = () => {
   const { cart, removeProduct, changeQuantity } = useCart();
   const subtotal = (price: string, quantity: number) => {
