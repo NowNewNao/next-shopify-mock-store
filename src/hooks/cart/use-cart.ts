@@ -1,8 +1,38 @@
 import { useEffect } from 'react';
 import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
-import { Cart } from "shopify-buy";
+import { Cart as SdkCart, ProductVariant as SdkProductVariant } from "shopify-buy";
 import { getCheckoutId, setCheckoutId } from '../../utils/helper';
 import { client } from '../../shopify/client';
+
+/*
+** JavaScript Buy SDK misses some TypeScript Type defenitions
+*/
+type SelectedOption = {
+  name: string;
+  value: string;
+};
+
+type Sku = {
+  selectedOptions: SelectedOption[];
+  image: {
+    altText?: string | null;
+  };
+  product: {
+    id: string;
+  };
+} & SdkProductVariant;
+
+type lineItem = {
+  id: string;
+  title: string;
+  quantity: number;
+  variant: Sku;
+};
+
+type Cart = {
+  lineItems: lineItem[];
+  webUrl: string;
+} & SdkCart;
 
 type useCartInterface = {
   cart: Cart | null;
@@ -37,10 +67,11 @@ export const useCart = (): useCartInterface => {
       const checkoutId = getCheckoutId();
       if(checkoutId) return;
       client.checkout.create().then(cart => {
-        setCart(cart);
+        setCart(cart as Cart);
         setCheckoutId(cart.id);
       });
     },[]);
+    return;
   };
 
   initializeCart();
@@ -50,7 +81,7 @@ export const useCart = (): useCartInterface => {
     if(!cart) return;
     client.checkout
       .updateLineItems(cart.id, [{id: id, quantity: parseInt(quantity)}])
-      .then((cart: Cart) => {
+      .then((cart) => {
         setCart(cart as Cart);
       });
   };
@@ -93,4 +124,4 @@ export const useCart = (): useCartInterface => {
     removeProduct,
     fetchCart
   }
-}
+};
