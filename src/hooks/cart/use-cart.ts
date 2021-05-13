@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
-import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
-import { Cart as SdkCart, ProductVariant as SdkProductVariant } from "shopify-buy";
+import { atom, selector, useRecoilState, useRecoilValue } from 'recoil';
+import {
+  Cart as SdkCart,
+  ProductVariant as SdkProductVariant,
+} from 'shopify-buy';
 import { getCheckoutId, setCheckoutId } from '../../utils/helper';
 import { client } from '../../shopify/client';
 
 /*
-** JavaScript Buy SDK misses some TypeScript Type defenitions
-*/
+ ** JavaScript Buy SDK misses some TypeScript Type defenitions
+ */
 type SelectedOption = {
   name: string;
   value: string;
@@ -41,7 +44,7 @@ type useCartInterface = {
   addToCart: (id: string | number) => Promise<void>;
   removeProduct: (id: string) => void;
   fetchCart: () => void;
-}
+};
 
 const cartState = atom<Cart | null>({
   key: 'cartState',
@@ -50,11 +53,8 @@ const cartState = atom<Cart | null>({
 
 const cartItemQuantityState = selector({
   key: 'cartItemQuantityState',
-  get: ({get}) => 
-    get(cartState)?.lineItems.reduce((acc, cur) => 
-    acc + cur.quantity,
-      0
-    ) ?? 0,
+  get: ({ get }) =>
+    get(cartState)?.lineItems.reduce((acc, cur) => acc + cur.quantity, 0) ?? 0,
 });
 
 export const useCart = (): useCartInterface => {
@@ -65,12 +65,12 @@ export const useCart = (): useCartInterface => {
   const initializeCart = () => {
     useEffect(() => {
       const checkoutId = getCheckoutId();
-      if(checkoutId) return;
-      client.checkout.create().then(cart => {
+      if (checkoutId) return;
+      client.checkout.create().then((cart) => {
         setCart(cart as Cart);
         setCheckoutId(cart.id);
       });
-    },[]);
+    }, []);
     return;
   };
 
@@ -78,9 +78,9 @@ export const useCart = (): useCartInterface => {
 
   // 商品数の変更
   const changeQuantity = (id: string | number, quantity: string) => {
-    if(!cart) return;
+    if (!cart) return;
     client.checkout
-      .updateLineItems(cart.id, [{id: id, quantity: parseInt(quantity)}])
+      .updateLineItems(cart.id, [{ id: id, quantity: parseInt(quantity) }])
       .then((cart) => {
         setCart(cart as Cart);
       });
@@ -88,7 +88,7 @@ export const useCart = (): useCartInterface => {
 
   // 商品を追加
   const addToCart = (id: string | number): Promise<void> => {
-    console.log(`id`,id)
+    console.log(`id`, id);
     return client.checkout
       .addLineItems(getCheckoutId(), [
         {
@@ -96,25 +96,27 @@ export const useCart = (): useCartInterface => {
           quantity: 1,
         },
       ])
-      .then(cart => {setCart(cart as Cart)});
-  }
+      .then((cart) => {
+        setCart(cart as Cart);
+      });
+  };
 
   // 商品を削除
   const removeProduct = (id: string) => {
-    if(!cart) return;
-    client.checkout.removeLineItems(cart.id, [id]).then(cart => {
+    if (!cart) return;
+    client.checkout.removeLineItems(cart.id, [id]).then((cart) => {
       setCart(cart as Cart);
     });
-  } 
+  };
 
   // カートを取得
   const fetchCart = () => {
     useEffect(() => {
       const checkoutId = getCheckoutId();
-      if(!checkoutId) return;
-      client.checkout.fetch(checkoutId).then(cart => setCart(cart as Cart));
+      if (!checkoutId) return;
+      client.checkout.fetch(checkoutId).then((cart) => setCart(cart as Cart));
     }, []);
-  }
+  };
 
   return {
     cart,
@@ -122,6 +124,6 @@ export const useCart = (): useCartInterface => {
     changeQuantity,
     addToCart,
     removeProduct,
-    fetchCart
-  }
+    fetchCart,
+  };
 };
