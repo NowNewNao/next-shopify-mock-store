@@ -2,12 +2,12 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { Product } from 'shopify-buy';
 import { client } from '../../shopify/client';
-import Button from '@material-ui/core/Button';
 import { useCart } from '../../hooks/cart/use-cart';
 import React, { useState } from 'react';
 import Snackbar, { SnackbarOrigin } from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import ProductDetailLayout from '../../components/Product/ProductDetailLayout';
+import Button from '../../components/Molecules/Button';
 
 type Props = {
   product: Product;
@@ -45,14 +45,11 @@ const ProductDetail = ({ product, errors }: Props) => {
       </Link>
       <ProductDetailLayout product={product} />
       <Button
-        variant="contained"
-        color="primary"
+        text="Add to Cart"
         onClick={() => {
           updateCart(String(product.variants[0].id));
         }}
-      >
-        Add to Cart
-      </Button>
+      />
       <Snackbar
         autoHideDuration={2000}
         anchorOrigin={{ vertical, horizontal }}
