@@ -1,13 +1,13 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { Product } from 'shopify-buy';
-import ProductCard from '../../components/Product/ProductCard';
 import { client } from '../../shopify/client';
 import Button from '@material-ui/core/Button';
 import { useCart } from '../../hooks/cart/use-cart';
 import React, { useState } from 'react';
 import Snackbar, { SnackbarOrigin } from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import ProductDetailLayout from '../../components/Product/ProductDetailLayout';
 
 type Props = {
   product: Product;
@@ -43,7 +43,7 @@ const ProductDetail = ({ product, errors }: Props) => {
       <Link href="/">
         <a>👈 Back to Product List</a>
       </Link>
-      <ProductCard product={product} />
+      <ProductDetailLayout product={product} />
       <Button
         variant="contained"
         color="primary"
