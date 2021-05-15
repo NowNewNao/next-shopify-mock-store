@@ -8,6 +8,7 @@ import Snackbar, { SnackbarOrigin } from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import ProductDetailLayout from '../../components/Product/ProductDetailLayout';
 import Button from '../../components/Molecules/Button';
+import Loading from '../../components/Molecules/Loading';
 
 type Props = {
   product: Product;
@@ -35,7 +36,7 @@ const ProductDetail = ({ product, errors }: Props) => {
     setToastState({ ...toastState, open: true });
   };
 
-  if (!product) return <div>loading...</div>;
+  if (!product) return <Loading />;
   if (errors) return <div>error</div>;
 
   return (
