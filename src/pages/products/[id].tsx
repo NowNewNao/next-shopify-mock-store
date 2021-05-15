@@ -40,9 +40,11 @@ const ProductDetail = ({ product, errors }: Props) => {
 
   return (
     <>
-      <Link href="/">
-        <a>👈 Back to Product List</a>
-      </Link>
+      <div className="mt-2 md:mt-4 ml-2 md:ml-4">
+        <Link href="/">
+          <a className="text-gray-400 sm:text-xs md:text-xs lg:text-base">👈  Back to Product List</a>
+        </Link>
+      </div>
       <ProductDetailLayout product={product} />
       <Button
         text="Add to Cart"

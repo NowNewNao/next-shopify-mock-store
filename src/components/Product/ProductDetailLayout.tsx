@@ -7,11 +7,11 @@ type Props = {
 
 const ProductDetailLayout = ({ product }: Props) => {
   return (
-    <div className="text-center mt-4 px-2 lg:mt-16">
+    <div className="mt-4 mx-auto px-2 lg:mt-16 md:w-1/2">
         <h1 className="text-xl font-semibold mt-2 text-green-500 overflow-x-auto h-8">
           {product.title}
         </h1>
-        <div className="mt-2">
+        <div className="mt-2 mx-auto">
           <Image
             src={product.images[0].src}
             alt={product.title}
