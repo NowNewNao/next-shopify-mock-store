@@ -30,10 +30,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
       </nav>
     </header>
     {children}
-    <footer>
-      <hr />
-      <span>Copy right of Nao Arimura. All rights reserved.</span>
-    </footer>
+
   </div>
 );
 
