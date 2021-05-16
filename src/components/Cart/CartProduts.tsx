@@ -15,31 +15,45 @@ const CartProducts: React.FC = () => {
       <div>
         <div className="mt-2 md:mt-4 ml-2 md:ml-4">
           <Link href="/">
-            <a className="text-gray-400 sm:text-xs md:text-xs lg:text-base">👈  Back to Product List</a>
+            <a className="text-gray-400 sm:text-xs md:text-xs lg:text-base">
+              👈 Back to Product List
+            </a>
           </Link>
-        </div> 
+        </div>
         {cart.lineItems.length === 0 ? (
           <div className="h-screen relative">
             <p className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl text-gray-500">
-              Your cart is empty. Enjoy Shoping! 
+              Your cart is empty. Enjoy Shoping!
             </p>
-          </div> 
+          </div>
         ) : (
           <div className="container mx-auto mt-10 p-4 md:w-8/12">
             <div className="flex justify-between border-b pb-8">
-              <h1 className="font-semibold text-xl md:text-2xl">Shopping Cart</h1>
-              <h2 className="font-semibold text-xl md:text-2xl">TOTAL ${cart.subtotalPrice}</h2>
+              <h1 className="font-semibold text-xl md:text-2xl">
+                Shopping Cart
+              </h1>
+              <h2 className="font-semibold text-xl md:text-2xl">
+                TOTAL ${cart.subtotalPrice}
+              </h2>
               <Button
                 text="PURCHASE"
                 onClick={() => window.open(cart.webUrl)}
-              / >
+              />
             </div>
             <div className="md:px-8">
               <div className="flex mt-10 mb-5">
-                <h3 className="font-semibold text-gray-600 text-xs sm:text-s uppercase w-2/5 sm:w-2/6 sm:text-left">Product</h3>
-                <h3 className="font-semibold  text-gray-600 text-xs sm:text-s uppercase w-1/5 sm:w-1/6 sm:text-left">Price</h3>
-                <h3 className="font-semibold text-gray-600 text-xs sm:text-s uppercase hidden sm:block sm:w-1/6 sm:text-left">Quantity</h3>
-                <h3 className="font-semibold  text-gray-600 text-xs sm:text-s uppercase w-2/5 sm:w-1/6 text-center sm:text-left">Total</h3>
+                <h3 className="font-semibold text-gray-600 text-xs sm:text-s uppercase w-2/5 sm:w-2/6 sm:text-left">
+                  Product
+                </h3>
+                <h3 className="font-semibold  text-gray-600 text-xs sm:text-s uppercase w-1/5 sm:w-1/6 sm:text-left">
+                  Price
+                </h3>
+                <h3 className="font-semibold text-gray-600 text-xs sm:text-s uppercase hidden sm:block sm:w-1/6 sm:text-left">
+                  Quantity
+                </h3>
+                <h3 className="font-semibold  text-gray-600 text-xs sm:text-s uppercase w-2/5 sm:w-1/6 text-center sm:text-left">
+                  Total
+                </h3>
                 <div className="hidden sm:w-1/6 "></div>
               </div>
               {cart.lineItems.map((item) => (
@@ -55,14 +69,15 @@ const CartProducts: React.FC = () => {
                       />
                     </div>
                   </div>
-                  <div className="w-1/6 text-xs sm:text-lg">${item.variant.price}</div>
+                  <div className="w-1/6 text-xs sm:text-lg">
+                    ${item.variant.price}
+                  </div>
                   <div className="w-1/6 text-xs sm:text-lg">
                     <select
                       defaultValue={item.quantity}
                       onChange={(e) => {
                         changeQuantity(item.id, e.target.value);
                       }}
-                      
                     >
                       {[...Array(10).keys()].map((num) => {
                         const value = num + 1;
@@ -75,7 +90,8 @@ const CartProducts: React.FC = () => {
                     </select>
                   </div>
                   <div className="w-1/6 text-xs sm:text-lg">
-                    $ {subtotal(item.variant.price, item.quantity)}</div>
+                    $ {subtotal(item.variant.price, item.quantity)}
+                  </div>
                   <div className="w-1/6 text-xs sm:text-lg">
                     <MuiLink
                       component="button"
@@ -89,8 +105,6 @@ const CartProducts: React.FC = () => {
                 </div>
               ))}
             </div>
-
-            
           </div>
         )}
       </div>
