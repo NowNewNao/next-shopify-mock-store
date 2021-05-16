@@ -1,7 +1,6 @@
 # What is this?
 ---
 This is a mock e-commerce site. It has produt list, product details, and cart.
-Self project to learn some new tech stuff. 
 * Using test purchase mode. So you can order some products, but it'll never be charged.
  [Here is the site](https://next-shopify-mock-store.vercel.app/).
 
@@ -16,5 +15,3 @@ Self project to learn some new tech stuff.
 - TailwindCSS
 - GraphQL
 - ShopifyAPI
-
-
