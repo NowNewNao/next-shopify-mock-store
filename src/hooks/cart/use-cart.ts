@@ -88,7 +88,6 @@ export const useCart = (): useCartInterface => {
 
   // 商品を追加
   const addToCart = (id: string | number): Promise<void> => {
-    console.log(`id`, id);
     return client.checkout
       .addLineItems(getCheckoutId(), [
         {
