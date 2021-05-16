@@ -1,25 +1,25 @@
-import { GetStaticPaths, GetStaticProps } from "next";
-import Link from "next/link";
-import { Product } from "shopify-buy";
-import ProductCard from "../../components/Product/ProductCard";
-import { client } from "../../shopify/client";
-import Button from "@material-ui/core/Button";
-import { useCart } from "../../hooks/cart/use-cart"
-import React, { useState } from "react";
-import Snackbar, { SnackbarOrigin } from "@material-ui/core/Snackbar";
+import { GetStaticPaths, GetStaticProps } from 'next';
+import Link from 'next/link';
+import { Product } from 'shopify-buy';
+import { client } from '../../shopify/client';
+import { useCart } from '../../hooks/cart/use-cart';
+import React, { useState } from 'react';
+import Snackbar, { SnackbarOrigin } from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import ProductDetailLayout from '../../components/Product/ProductDetailLayout';
+import Button from '../../components/Molecules/Button';
+import Loading from '../../components/Molecules/Loading';
 
 type Props = {
   product: Product;
+  errors?: any;
 };
 
 type ToastState = {
   open: boolean;
 } & SnackbarOrigin;
 
-
-
-const ProductDetail = ({ product }: Props) => {
+const ProductDetail = ({ product, errors }: Props) => {
   const [toastState, setToastState] = useState<ToastState>({
     open: false,
     vertical: 'top',
@@ -27,28 +27,34 @@ const ProductDetail = ({ product }: Props) => {
   });
   const { vertical, horizontal, open } = toastState;
   const close = () => {
-    setToastState({...toastState, open: false});
+    setToastState({ ...toastState, open: false });
   };
 
-const { addToCart }= useCart();
+  const { addToCart } = useCart();
   const updateCart = async (id: string) => {
     await addToCart(id);
-    setToastState({...toastState, open: true});
+    setToastState({ ...toastState, open: true });
   };
-  
+
+  if (!product) return <Loading />;
+  if (errors) return <div>error</div>;
+
   return (
     <>
-      <Link href="/">
-        <a>👈 Back to Product List</a>
-      </Link>
-      <ProductCard product={product} />
+      <div className="mt-2 md:mt-4 ml-2 md:ml-4">
+        <Link href="/">
+          <a className="text-gray-400 sm:text-xs md:text-xs lg:text-base">
+            👈 Back to Product List
+          </a>
+        </Link>
+      </div>
+      <ProductDetailLayout product={product} />
       <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {updateCart(String(product.variants[0].id))}}
-        >
-        Add to Cart
-      </Button>
+        text="Add to Cart"
+        onClick={() => {
+          updateCart(String(product.variants[0].id));
+        }}
+      />
       <Snackbar
         autoHideDuration={2000}
         anchorOrigin={{ vertical, horizontal }}
@@ -61,8 +67,8 @@ const { addToCart }= useCart();
         </MuiAlert>
       </Snackbar>
     </>
-  )
-}
+  );
+};
 export default ProductDetail;
 
 export const getStaticPaths: GetStaticPaths = async () => ({
@@ -73,17 +79,17 @@ export const getStaticPaths: GetStaticPaths = async () => ({
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
     const product = await client.product.fetch(params?.id as string);
-    if(!params) throw new Error('Product Not Found');
+    if (!params) throw new Error('Product Not Found');
     return {
       props: {
         product: JSON.parse(JSON.stringify(product)),
-      }
-    }
+      },
+    };
   } catch (error) {
     return {
       props: {
-        errors: error.message
-      }
+        errors: error.message,
+      },
     };
   }
-}
+};
