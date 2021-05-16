@@ -71,13 +71,14 @@ export const useCart = (): useCartInterface => {
         setCheckoutId(cart.id);
       });
     }, []);
-    return;
   };
 
+  console.log(`before initialize`, cart);
   initializeCart();
+  console.log(`after initialize`, cart);
 
   // 商品数の変更
-  const changeQuantity = (id: string | number, quantity: string) => {
+  const changeQuantity = (id: string | number, quantity: string): void => {
     if (!cart) return;
     client.checkout
       .updateLineItems(cart.id, [{ id: id, quantity: parseInt(quantity) }])
