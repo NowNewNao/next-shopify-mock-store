@@ -1,4 +1,3 @@
-require('dotenv').config();
 module.exports = {
   env: {
     NEXT_PUBLIC_SHOPIFY_DOMAIN: process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN,
